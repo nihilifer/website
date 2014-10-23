@@ -106,7 +106,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 LOGIN_REDIRECT_URL = '/'
 
-SHMIR_API_ADDRESS = 'http://localhost:8080'
+# SHMIR_API_ADDRESS = 'http://localhost:8080'
+SHMIR_API_ADDRESS = 'http://shmir.wmi.amu.edu.pl/api/'
 
 # ********** EMAIL ************************
 DEFAULT_FROM_EMAIL = ''
