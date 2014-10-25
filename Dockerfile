@@ -6,3 +6,7 @@ RUN yum install -y python-pip python-devel gcc
 ADD . /opt/shmir-website
 
 RUN pip install -r /opt/shmir-website/requirements.txt
+
+WORKDIR /opt/shmir-website/shweb
+
+RUN python manage.py collectstatic --noinput
