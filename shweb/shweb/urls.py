@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
     url(r'^about/$', generic.TemplateView.as_view(template_name="about.html"),
         name="about"),
+    url(r'^help/$', generic.TemplateView.as_view(template_name="help.html"),
+        name="help"),
 )
