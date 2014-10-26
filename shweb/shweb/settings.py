@@ -48,7 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'shweb.designer.utils.CheckIfApiIsUp',
+    'designer.utils.CheckIfApiIsUp',
 )
 
 ROOT_URLCONF = 'shweb.urls'
