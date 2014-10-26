@@ -9,7 +9,7 @@ import urllib
 import json
 import httplib
 import re
-from django.shortcuts import redirect
+from django.shortcuts import redirect, Http404
 from django.conf import settings
 
 
@@ -39,6 +39,8 @@ class ShmirDesigner(object):
 
         if response.status_code == httplib.OK:
             return json.loads(response.content)
+        raise Http404()
+
 
     @classmethod
     def build_pdf_url(cls, pdf_dirs):
@@ -206,6 +208,7 @@ class CheckIfApiIsUp(object):
 
     def process_request(self, request):
         if any([pat.search(request.path) for pat in self.vulnerable_urls]):
-            response = ShmirDesigner.structures()
-            if response == ['all']:
+            try:
+                response = ShmirDesigner.structures()
+            except Http404:
                 return redirect('lucky')
