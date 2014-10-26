@@ -7,6 +7,9 @@
 import requests
 import urllib
 import json
+import httplib
+import re
+from django.shortcuts import redirect
 from django.conf import settings
 
 
@@ -33,7 +36,9 @@ class ShmirDesigner(object):
 
         request_url += '?' + urllib.urlencode(kwargs) if kwargs else ''
         response = requests.get(request_url)
-        return json.loads(response.content)
+
+        if response.status_code == httplib.OK:
+            return json.loads(response.content)
 
     @classmethod
     def build_pdf_url(cls, pdf_dirs):
@@ -190,3 +195,17 @@ class ShmirDesigner(object):
         structures = cls._process('structures')
         templates = structures.get('templates', []) + ['all']
         return sorted(templates)
+
+
+class CheckIfApiIsUp(object):
+    vulnerable_urls = map(re.compile, (
+        r'^/$',
+        r'^/?sirna/$',
+        r'^/?[a-z0-9\-]{36}/$',
+    ))
+
+    def process_request(self, request):
+        if any([pat.search(request.path) for pat in self.vulnerable_urls]):
+            response = ShmirDesigner.structures()
+            if response == ['all']:
+                return redirect('lucky')

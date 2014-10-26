@@ -22,4 +22,6 @@ urlpatterns = patterns('',
         name="about"),
     url(r'^help/$', generic.TemplateView.as_view(template_name="help.html"),
         name="help"),
+    url(r'^lucky_page/$', generic.TemplateView.as_view(template_name="lucky.html"),
+        name="lucky"),
 )
