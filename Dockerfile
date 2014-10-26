@@ -9,4 +9,5 @@ RUN pip install -r /opt/shmir-website/requirements.txt
 
 WORKDIR /opt/shmir-website/shweb
 
+RUN python manage.py syncdb --noinput
 RUN python manage.py collectstatic --noinput
