@@ -13,7 +13,7 @@
   </h3>
   <p>
      <img class="ui image right floated" src="http://igem.org/wiki/images/6/60/Igemlogo_300px.png">
-     Sh-miR designer is a project we started during iGEM 2013. This year we would like to continue and expand functionality of the software. sh-miR designer v1.0 (link) is aimed to create sh-miR molecules based on siRNAs provided by the user. In sh-miR designer v2.0 only the mRNA number (from NCBI database), which expression should be decreased can be provided.</p>
+     Sh-miR designer is a project we started during iGEM 2013. This year we would like to continue and expand functionality of the software. <a href="https://github.com/igemsoftware/AMU-Poznan2013">sh-miR designer v1.0<i class="icon external link"></i></a> is aimed to create sh-miR molecules based on siRNAs provided by the user. In sh-miR designer v2.0 only the mRNA number (from NCBI database), which expression should be decreased can be provided.</p>
      <p>Moreover, we expanded functionality of the software with off-target validation and check of immune motifs and also extended miRNA-shuttles database. sh-miR Designer is a software aimed for fast and efficient design of effective RNA interference (RNAi) reagents - sh-miRs, also known as artificial miRNAs. sh-miRs are RNA particles whose structure is based on miRNA precursor pri-miRNA, but sequence interacting with transcript is changed depending on research purpose.</p>
      <p>Maintenance of structure of pri-miRNA is very important to enable cellular processing and therefore ensure functionality of artificial particles. sh-miRs delivered to cells on genetic vectors - plasmids or viral vectors - enter natural RNAi pathway and silence target mRNA. They can be used in genetic therapies and basic biomedical research. We will provide two applications to access the software, one which require siRNA sequences and the second which require transcript accession number from NCBI database. Each user will receive an account with login (e-mail) and password where he/she would be able to check history of software usage.
   </p>
@@ -24,7 +24,7 @@
     Use our website as a client for sh-miR Desiger.
   </h3>
   <p>
-    Choose one of two possibilities at the top of the page. Design a sh-miR: <a href="{% url 'designer:create' %}">from structure<i class="icon external url"></i></a> (NCBI mRNA number) or <a href="{% url 'designer:creat_sirna">from siRNA<i class="icon external url"></i></a> strand (or two). After filling out the chosen form you will be redirected to the "Design Process" page - unique for the input you have provided. You might see the process is in progress - that is completely OK - it takes some time before it is finished.</p>
+    Choose one of two possibilities at the top of the page. Design a sh-miR: <a href="{% url 'designer:create' %}">from structure<i class="icon external url"></i></a> (NCBI mRNA number) or <a href="{% url 'designer:create_sirna' %}">from siRNA<i class="icon external url"></i></a> strand (or two). After filling out the chosen form you will be redirected to the "Design Process" page - unique for the input you have provided. You might see the process is in progress - that is completely OK - it takes some time before it is finished.</p>
     <iframe class="ui image right floated" width="420" height="315" src="//www.youtube.com/embed/D3DO_5NODQo" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="ui divider"></div>
