@@ -3,5 +3,7 @@ shmirwebsite:
     working_dir: /opt/shmir-website/shweb
     # command: python manage.py runserver 0.0.0.0:8090
     command: uwsgi --http :8090 --module shweb.wsgi
+    volumes:
+    - .:/opt/shmir-website
     ports:
     - "8090:8090"
