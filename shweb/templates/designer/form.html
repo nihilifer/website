@@ -31,7 +31,7 @@
                 </div>
                 <div class="field popups{% if form.max_offtarget.errors %} error{% endif %}">
                     <label for={{ form.max_offtarget.auto_id }}>{{ form.max_offtarget.label }}</label>
-                    {% render_field form.max_offtarget data-content=form.max_offtarget.help_text data-variation="inverted" readonly=in_progress%}
+                    {% render_field form.max_offtarget data-content=form.max_offtarget.help_text data-variation="inverted" %}
                     {% if form.max_offtarget.errors %}
                     <div class="ui red pointing above ui label">{{ form.max_offtarget.errors }}</div>
                     {% endif %}
