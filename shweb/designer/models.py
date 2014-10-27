@@ -56,7 +56,7 @@ class DesignProcessModel(models.Model):
         null=True,
     )
     stymulators = models.CharField(
-        "stimulatory sequences",
+        "immunostimulatory sequences",
         max_length=20,
         choices=STIMULATORS_CHOICE,
         default=None,
@@ -65,9 +65,10 @@ class DesignProcessModel(models.Model):
     )
     mirna_name = models.CharField(
         "miRNA scaffold",
+        default=None,
         blank=True,
         null=True,
-        max_length=20
+        max_length=20,
     )
     email_notify = models.EmailField(
         "Your e-mail",

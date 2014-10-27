@@ -37,7 +37,7 @@
                     {% endif %}
                 </div>
                 <div class="field{% if form.mirna_name.errors %} error{% endif %}">
-                    <label for={{ form.mirna_name.auto_id }}>{{ form.mirna_name.label }}</label>
+                    <label for="{{ form.mirna_name.auto_id }}">miRNA scaffold</label>
                     <div class="ui fluid selection dropdown">
                         <input id="{{ form.mirna_name.auto_id }}" type="hidden" name="{{ form.mirna_name.name }}">
                         <div class="default text">choose...</div>
@@ -53,10 +53,10 @@
                     {% endif %}
                 </div>
                 <div class="field{% if form.stymulators.errors %} error{% endif %}">
-                    <label for={{ form.stymulators.auto_id }}>{{ form.stymulators.label }}</label>
+                    <label for="{{ form.stymulators.auto_id }}">{{ form.stymulators.label }}</label>
                     <div class="ui fluid selection dropdown">
                         <input id="{{ form.stymulators.auto_id }}" type="hidden" name="{{ form.stymulators.name }}">
-                        <div class="default text">choose...</div>
+                        <div class="text">choose...</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
                             {% for val, key in form.stymulators.field.choices %}
