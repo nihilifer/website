@@ -5,5 +5,9 @@ shmirwebsite:
     command: uwsgi --http :8090 --module shweb.wsgi
     volumes:
     - .:/opt/shmir-website
+    links:
+    - db
     ports:
     - "8090:8090"
+db:
+    image: postgres
