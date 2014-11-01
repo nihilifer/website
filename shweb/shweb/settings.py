@@ -149,3 +149,5 @@ LOGGING = {
         },
     },
 }
+
+SHMIR_HOST = 'http://shmir.wmi.amu.edu.pl/'

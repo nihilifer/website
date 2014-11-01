@@ -9,6 +9,7 @@ from django.views import generic
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.http import Http404
+from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
@@ -78,7 +79,9 @@ class RegistrationView(generic.FormView):
                        <a href="http://{0}{1}">
                        {0}{1}</a></html>
                        """.format(
-            self.request.get_host(), reverse('accounts:confirm', kwargs={'code': user.confirmation_code})
+            # self.request.get_host(),
+            settings.SHMIR_HOST,
+            reverse('accounts:confirm', kwargs={'code': user.confirmation_code})
         )
         msg = EmailMultiAlternatives(subject, html_content, from_mail, to)
         msg.content_subtype = 'html'
