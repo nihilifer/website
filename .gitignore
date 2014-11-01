@@ -55,3 +55,6 @@ docs/_build/
 # garbage
 db.sqlite3
 .DS_Store
+
+# Logging
+shweb.log
