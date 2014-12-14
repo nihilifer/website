@@ -22,7 +22,7 @@
       <div class="navwrapper">
           {% url 'designer:create' as design_url %}
           <a class="item{% if design_url == request.path %} active{% endif %}" href="{{ design_url }}">
-            <i class="lab icon"></i> designer
+            <i class="lab icon"></i> from transcript
           </a>
           {% url 'designer:create_sirna' as sirna_design_url %}
           <a class="item{% if sirna_design_url in request.path %} active{% endif %}" href="{{ sirna_design_url }}">

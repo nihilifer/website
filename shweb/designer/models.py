@@ -34,7 +34,6 @@ class DesignProcessModel(models.Model):
     min_gc = models.IntegerField(
         "minimum 'GC' content",
         validators=[MinValueValidator(0), MaxValueValidator(100)],
-        default=40,
         help_text="You can choose between 0-100 (scroll)",
         blank=True,
         null=True,
@@ -42,7 +41,6 @@ class DesignProcessModel(models.Model):
     max_gc = models.IntegerField(
         "maximum 'GC' content",
         validators=[MinValueValidator(0), MaxValueValidator(100)],
-        default=60,
         help_text="You can choose between 0-100 (scroll)",
         blank=True,
         null=True,
@@ -50,7 +48,6 @@ class DesignProcessModel(models.Model):
     max_offtarget = models.IntegerField(
         "maximum of off-target transcripts",
         validators=[MinValueValidator(0), MaxValueValidator(1000)],
-        default=10,
         help_text="You can choose between 0-1000 (scroll)",
         blank=True,
         null=True,
@@ -59,13 +56,11 @@ class DesignProcessModel(models.Model):
         "immunostimulatory sequences",
         max_length=20,
         choices=STIMULATORS_CHOICE,
-        default=None,
         blank=True,
         null=True,
     )
     mirna_name = models.CharField(
         "miRNA scaffold",
-        default=None,
         blank=True,
         null=True,
         max_length=20,
@@ -78,13 +73,12 @@ class DesignProcessModel(models.Model):
                   "be notified about task completion. "
                   "Otherwise leave the field blank."
     )
-
     sirna = models.CharField(
         "siRNA",
         max_length=60,
         blank=True,
         null=True,
-        help_text="Type one or two siRNA strands."
+        help_text="Type one or two siRNA strands separated by space."
     )
     datetime_start = models.DateTimeField(auto_now_add=True)
     datetime_finish = models.DateTimeField(blank=True, null=True)

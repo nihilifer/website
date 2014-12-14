@@ -3,7 +3,7 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="field popups{% if form.sirna.errors %} error{% endif %}">
-                    <label for={{ form.sirna.auto_id }}>{{ form.sirna.label }}</label>
+                    <label for={{ form.sirna.auto_id }}>siRNA</label>
                     {% render_field form.sirna data-variation="inverted" data-content=form.sirna.help_text %}
                     {% if form.sirna.errors %}
                     <div class="ui red pointing above ui label">{{ form.sirna.errors }}</div>
