@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 
 from django.http import Http404, HttpResponse
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from designer.models import DesignProcessModel, STIMULATORS_CHOICE
 from designer.forms import DesignProcessForm, DesignProcessSirnaForm
 from designer.utils import ShmirDesigner as shmir
@@ -86,8 +87,8 @@ class DesignProcessDetailView(generic.DetailView):
             results = shmir.from_transcript_result(process.process_id)
             process.results = results
 
-        if process.stymulators:
-            process.stymulators = dict(STIMULATORS_CHOICE)[process.stymulators]
+        if process.immuno:
+            process.immuno = dict(STIMULATORS_CHOICE)[process.immuno]
         return process
 
 
@@ -133,14 +134,19 @@ class DesignProcessSirnaCreateView(generic.CreateView):
         if self.request.user.id:
             form.instance.user = self.request.user
 
-        form.instance.process_id = shmir.from_sirna_create(form.cleaned_data)
-        obj = form.save()
-        return redirect('designer:detail', process_id=obj.process_id)
+        try:
+            form.instance.process_id = shmir.from_sirna_create(form.cleaned_data)
+        except ValidationError as e:
+            form.errors['sirna'] = [e.message]
+            return self.form_invalid(form)
+        else:
+            obj = form.save()
+            return redirect('designer:detail', process_id=obj.process_id)
 
 
 class DesignProcessCreateView(DesignProcessSirnaCreateView):
     """Create view for DesignProcessModel which is contructed from all input values such as:
-    transcript', 'min_gc', 'max_gc', 'max_offtarget', 'mirna_name', 'stymulators'.
+    transcript', 'min_gc', 'max_gc', 'max_offtarget', 'mirna_name', 'immuno'.
     Inherited from DesignProcessSirnaCreateView
     """
     template_name = "designer/create.html"
@@ -157,6 +163,7 @@ class DesignProcessCreateView(DesignProcessSirnaCreateView):
         """
         context = super(DesignProcessCreateView, self).get_context_data(**kwargs)
         context['mirna_name'] = shmir.structures()
+        context['immuno'] = STIMULATORS_CHOICE
         return context
 
     def form_valid(self, form):

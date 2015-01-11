@@ -11,6 +11,7 @@ import httplib
 import re
 from django.shortcuts import redirect, Http404
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 
 class ShmirDesigner(object):
@@ -35,12 +36,15 @@ class ShmirDesigner(object):
             request_url += '/%s' % urllib.quote(arg)
 
         request_url += '?' + urllib.urlencode(kwargs) if kwargs else ''
-        response = requests.get(request_url)
+        response_ = requests.get(request_url)
 
-        if response.status_code == httplib.OK:
-            return json.loads(response.content)
+        if response_.status_code == httplib.OK:
+            response = json.loads(response_.content)
+            if 'data' in response and response['data'].get('status') == 'error':
+                raise ValidationError(response['data'].get('result', "Unknown error"))
+            return response
+
         raise Http404()
-
 
     @classmethod
     def build_pdf_url(cls, pdf_dirs):
@@ -152,7 +156,7 @@ class ShmirDesigner(object):
 
         Args:
             data: iterable which contains all parameters like 'transcript', 'min_gc',
-                'max_gc', 'max_offtarget', 'mirna_name', 'stymulators'
+                'max_gc', 'max_offtarget', 'mirna_name', 'immuno'
 
         Returs:
             task_id from API

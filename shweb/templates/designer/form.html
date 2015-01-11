@@ -52,20 +52,20 @@
                     <div class="ui red pointing above ui label">{{ form.mirna_name.errors }}</div>
                     {% endif %}
                 </div>
-                <div class="field{% if form.stymulators.errors %} error{% endif %}">
-                    <label for="{{ form.stymulators.auto_id }}">{{ form.stymulators.label }}</label>
+                <div class="field{% if form.immuno.errors %} error{% endif %}">
+                    <label for="{{ form.immuno.auto_id }}">{{ form.immuno.label }}</label>
                     <div class="ui fluid selection dropdown">
-                        <input id="{{ form.stymulators.auto_id }}" type="hidden" name="{{ form.stymulators.name }}">
-                        <div class="text">choose...</div>
+                        <input id="{{ form.immuno.auto_id }}" type="hidden" name="{{ form.immuno.name }}">
+                        <div class="default text">choose...</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
-                            {% for val, key in form.stymulators.field.choices %}
-                            <div class="item" data-value="{{ val }}">{{ key }}</div>
+                            {% for val, key in immuno %}
+                                <div class="item" data-value="{{ val }}">{{ key }}</div>
                             {% endfor %}
                         </div>
                     </div>
-                    {% if form.stymulators.errors %}
-                    <div class="ui red pointing above ui label">{{ form.stymulators.errors }}</div>
+                    {% if form.immuno.errors %}
+                    <div class="ui red pointing above ui label">{{ form.immuno.errors }}</div>
                     {% endif %}
                 </div>
                 <div class="field popups{% if form.email_notify.errors %} error{% endif %}">

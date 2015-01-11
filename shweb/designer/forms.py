@@ -13,7 +13,7 @@ TRANSCRIPT_FIELDS = (
     'max_gc',
     'max_offtarget',
     'mirna_name',
-    'stymulators',
+    'immuno',
     'email_notify'
 )
 

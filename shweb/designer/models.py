@@ -52,7 +52,7 @@ class DesignProcessModel(models.Model):
         blank=True,
         null=True,
     )
-    stymulators = models.CharField(
+    immuno = models.CharField(
         "immunostimulatory sequences",
         max_length=20,
         choices=STIMULATORS_CHOICE,
