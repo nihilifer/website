@@ -28,6 +28,10 @@
           <a class="item{% if sirna_design_url in request.path %} active{% endif %}" href="{{ sirna_design_url }}">
             <i class="lab icon"></i> from siRNA
           </a>
+          {% url 'designer:offtarget' as offtarget_url %}
+          <a class="item{% if offtarget_url in request.path %} active{% endif %}" href="{{ offtarget_url }}">
+            <i class="lab icon"></i> offtarget
+          </a>
           {% url 'help' as help_url %}
           <a class="item{% if help_url in request.path %} active{% endif %}" href="{{ help_url }}">
             <i class="help icon"></i> help

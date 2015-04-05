@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from designer.models import DesignProcessModel, STIMULATORS_CHOICE
 from designer.forms import DesignProcessForm, DesignProcessSirnaForm
 from designer.utils import ShmirDesigner as shmir
+from designer.forms import OfftargetForm
 
 
 class DesignProcessNotifyView(generic.View):
@@ -84,11 +85,32 @@ class DesignProcessDetailView(generic.DetailView):
             raise Http404()
 
         if process.datetime_finish:
-            results = shmir.from_transcript_result(process.process_id)
-            process.results = results
+            if process.sirna:
+                try:
+                    process.results = shmir.from_sirna_result(process.process_id)
+                except ValidationError:
+                    process_id = shmir.from_sirna_create({
+                        'sirna': process.sirna,
+                    })
+                    process.results = shmir.from_sirna_result(process_id)
+
+            else:
+                try:
+                    process.results = shmir.from_transcript_result(process.process_id)
+                except ValidationError:
+                    process_id = shmir.from_transcript_create({
+                        'transcript': process.transcript,
+                        'min_gc': process.min_gc,
+                        'max_gc': process.max_gc,
+                        'max_offtarget': process.max_offtarget,
+                        'immuno': process.immuno,
+                        'mirna_name': process.mirna_name,
+                    })
+                    process.results = shmir.from_sirna_result(process_id)
 
         if process.immuno:
             process.immuno = dict(STIMULATORS_CHOICE)[process.immuno]
+
         return process
 
 
@@ -141,7 +163,7 @@ class DesignProcessSirnaCreateView(generic.CreateView):
             return self.form_invalid(form)
         else:
             obj = form.save()
-            return redirect('designer:detail', process_id=obj.process_id)
+            return redirect(obj)
 
 
 class DesignProcessCreateView(DesignProcessSirnaCreateView):
@@ -181,4 +203,12 @@ class DesignProcessCreateView(DesignProcessSirnaCreateView):
 
         form.instance.process_id = shmir.from_transcript_create(form.cleaned_data)
         obj = form.save()
-        return redirect('designer:detail', process_id=obj.process_id)
+        return redirect(obj)
+
+
+class OfftargetView(generic.FormView):
+    template_name = "designer/offtarget.html"
+    form_class = OfftargetForm
+
+    def form_valid(self):
+        return redirect('/')

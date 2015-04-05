@@ -61,3 +61,7 @@ class DesignProcessSirnaForm(forms.ModelForm):
     class Meta:
         model = DesignProcessModel
         fields = SIRNA_FIELDS
+
+
+class OfftargetForm(forms.Form):
+    offtarget = forms.CharField()

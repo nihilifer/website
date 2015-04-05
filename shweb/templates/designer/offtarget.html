@@ -1,0 +1,24 @@
+{% load widget_tweaks %}
+<div class="ui form">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="field popups{% if form.offtarget.errors %} error{% endif %}">
+            <label for={{ form.offtarget.auto_id }}>offtarget</label>
+            {% render_field form.offtarget data-variation="inverted" data-content=form.offtarget.help_text %}
+            {% if form.offtarget.errors %}
+            <div class="ui red pointing above ui label">{{ form.offtarget.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="field popups{% if form.email_notify.errors %} error{% endif %}">
+          <label for="{{ form.email_notify.auto_id }}">{{ form.email_notify.label }}</label>
+          <div class="ui left labeled icon input">
+            {% render_field form.email_notify data-content=form.email_notify.help_text data-variation="inverted" %}
+            <i class="mail icon"></i>
+            {% if form.email_notify.errors %}
+              <div class="ui red pointing above ui label">{{ form.email_notify.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
+        <input type="submit" value="submit" class="ui button">
+    </form>
+</div>

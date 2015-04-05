@@ -9,15 +9,25 @@ import urllib
 import json
 import httplib
 import re
+
+from oauth_hook import OAuthHook
 from django.shortcuts import redirect, Http404
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
+OAUTH_HOOK = OAuthHook(
+    settings.SHMIR_ACCESS_TOKEN,
+    settings.SHMIR_ACCESS_TOKEN_SECRET,
+    settings.SHMIR_CONSUMER_KEY,
+    settings.SHMIR_CONSUMER_SECRET,
+    settings.SHMIR_HEADER_AUTH
+)
 
 class ShmirDesigner(object):
     """It's responsible for website <-> shmir API communication
     """
     server_url = settings.SHMIR_API_ADDRESS.rstrip('/')
+    client = requests.session(hooks={'pre_request': OAUTH_HOOK})
 
     @classmethod
     def _process(cls, url, *args, **kwargs):
@@ -36,7 +46,7 @@ class ShmirDesigner(object):
             request_url += '/%s' % urllib.quote(arg)
 
         request_url += '?' + urllib.urlencode(kwargs) if kwargs else ''
-        response_ = requests.get(request_url)
+        response_ = cls.client.get(request_url)
 
         if response_.status_code == httplib.OK:
             response = json.loads(response_.content)
@@ -211,8 +221,8 @@ class CheckIfApiIsUp(object):
     ))
 
     def process_request(self, request):
-        if any([pat.search(request.path) for pat in self.vulnerable_urls]):
+        if any(pat.search(request.path) for pat in self.vulnerable_urls):
             try:
-                response = ShmirDesigner.structures()
+                ShmirDesigner.structures()
             except Http404:
                 return redirect('lucky')
