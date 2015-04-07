@@ -15,7 +15,7 @@ pip install -r requirements.txt
 python manage.py syncdb
 ```
 3. Set SHMIR_API_ADDRESS variable in shweb/shweb/settings.py file to proper sh-miR API url (official or local)
-3. Type runserver command:
+4. Type runserver command:
 ```
 python manage.py runserver
 ```
